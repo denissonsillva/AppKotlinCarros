@@ -1,49 +1,37 @@
 package br.com.livroandroid.carros.activity
 
 import android.os.Bundle
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.livroandroid.carros.R
-import br.com.livroandroid.carros.adapter.CarroAdapter
 import br.com.livroandroid.carros.domain.Carro
-import br.com.livroandroid.carros.domain.CarroService
 import br.com.livroandroid.carros.domain.TipoCarro
 import br.com.livroandroid.carros.extensions.setupToolbar
-import kotlinx.android.synthetic.main.activity_carros.*
-import org.jetbrains.anko.startActivity
+import br.com.livroandroid.carros.fragments.CarrosFragment
 
 class CarrosActivity : BaseActivity() {
-
-    private var tipo: TipoCarro = TipoCarro.Classicos
-    private var carros = listOf<Carro>()
+    var tipo = TipoCarro.Classicos
+    var carros = listOf<Carro>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_carros)
+        //Configura a Toolbar
         setupToolbar(R.id.toolbar)
+        //Liga o up navigation
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //Lê o tipo de argumentos
         this.tipo = intent.getSerializableExtra("tipo") as TipoCarro
+        //Título
+        val s = context.getString(tipo.string)
+        supportActionBar?.title = s
 
-        //RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.itemAnimator = DefaultItemAnimator()
-        recyclerView.setHasFixedSize =(true)
-
-        override fun onResume() {
-            super.onResume()
-            taskCarros()
-        }
-
-       fun taskCarros() {
-            //Busca carros
-            this.carros = CarroService.getCarros(context, tipo)
-            //Atualiza a lista
-            recyclerView.adapter = CarroAdapter(carros) {onClickCarro(it)}
-       }
-
-        //Trata o evento de clique no carro
-        private fun onClickCarro(carro: Carro) {
-            startActivity<CarroActivity>("carro" to carro)
+        //Adiciona o fragment no layout
+        if (savedInstanceState == null) {
+            //Cria uma instância do fragment e configura os argumentos
+            val frag = CarrosFragment()
+            // Dentre os argumentos que foram passados para a activity, está o tipo do carro.
+            frag.arguments = intent.extras
+            //Adicona o fragmente no layout de marcação
+            supportFragmentManager.beginTransaction().add(R.id.container, frag).commit()
         }
     }
 }

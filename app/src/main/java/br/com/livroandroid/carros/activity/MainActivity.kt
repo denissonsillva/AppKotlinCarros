@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import br.com.livroandroid.carros.R
+import br.com.livroandroid.carros.adapter.TabsAdapter
 import br.com.livroandroid.carros.domain.TipoCarro
 import br.com.livroandroid.carros.extensions.setupToolbar
 import com.google.android.material.navigation.NavigationView
@@ -20,8 +22,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //Toolbar
         setupToolbar(R.id.toolbar)
+        //Menu lateral
         setupNavDrawer()
+        //Tabs
+        setupViewPagerTabs()
 
         // FAB (variável fab gerada automaticamente pelo Kotlin Extensions)
         fab.setOnClickListener { view ->
@@ -49,6 +55,17 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun setupViewPagerTabs() {
+        // Configura o ViewPager + Tabs
+        // As variáveis viewPager e tabLayout são geradas automaticamente pelo Kotlin Extensions
+        viewPager.offscreenPageLimit = 2
+        viewPager.adapter = TabsAdapter(context, supportFragmentManager)
+        tabLayout.setupWithViewPager(viewPager)
+        // Cor branca no texto (o fundo azul é definido no layout)
+        val cor = ContextCompat.getColor(context, R.color.white)
+        tabLayout.setTabTextColors(cor, cor)
     }
 
     // Trata o evento do Navigation Drawer
