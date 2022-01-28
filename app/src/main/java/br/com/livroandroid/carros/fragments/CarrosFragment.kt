@@ -20,7 +20,7 @@ open class CarrosFragment : BaseFragment() {
     private var carros = listOf<Carro>()
 
     //Cria a View do Fragment
-    override fun onCreateViewinflater(inflater: LayoutInflater, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_carros, container, false)
         //Lê o tipo dos argumentos
