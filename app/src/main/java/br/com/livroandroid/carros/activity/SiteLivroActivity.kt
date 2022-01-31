@@ -14,7 +14,7 @@ import br.com.livroandroid.carros.extensions.setupToolbar
 import kotlinx.android.synthetic.main.activity_site_livro.*
 
 class SiteLivroActivity : BaseActivity() {
-    private val URL_SOBRE = "http://www.livroandroid.com.br/sobre.htm"
+    private val URL_SOBRE = "https://www.djektech.com.br"
 
     override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
@@ -65,7 +65,7 @@ class SiteLivroActivity : BaseActivity() {
             @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 val url = request?.url.toString()
-                if (url.endsWith("sobre.htm")) {
+                if (url.endsWith("djektech.htm")) {
                     // Alerta customizado
                     AboutDialog.showAbout(supportFragmentManager)
                     // Retorna true para informar que interceptamos o evento
