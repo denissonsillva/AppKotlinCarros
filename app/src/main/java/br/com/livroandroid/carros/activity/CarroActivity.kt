@@ -6,6 +6,7 @@ import br.com.livroandroid.carros.domain.Carro
 import br.com.livroandroid.carros.extensions.loadUrl
 import br.com.livroandroid.carros.extensions.setupToolbar
 import kotlinx.android.synthetic.main.activity_carro.*
+import kotlinx.android.synthetic.main.include_activity_carro.*
 
 class CarroActivity : BaseActivity() {
     val carro by lazy {intent.getParcelableExtra<Carro>("carro")}
@@ -17,6 +18,6 @@ class CarroActivity : BaseActivity() {
         //Atualiza descrição do carro
         tDesc.text = carro?.desc
         //Mostra a foto do carro na image view
-        img.loadUrl(carro?.urlFoto)
+        appBarImg.loadUrl(carro?.urlFoto)
     }
 }
