@@ -13,8 +13,12 @@ import br.com.livroandroid.carros.domain.Carro
 import br.com.livroandroid.carros.domain.CarroService
 import br.com.livroandroid.carros.domain.TipoCarro
 import kotlinx.android.synthetic.main.fragment_carros.*
+import kotlinx.android.synthetic.main.include_progress.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.uiThread
 
+@Suppress("DEPRECATION")
 open class CarrosFragment : BaseFragment() {
     private var tipo: TipoCarro = TipoCarro.Classicos
     private var carros = listOf<Carro>()
@@ -35,18 +39,26 @@ open class CarrosFragment : BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.setHasFixedSize(true)
-    }
-
-    override fun onResume() {
-        super.onResume()
         taskCarros()
     }
 
-    fun taskCarros() {
-        //Busca carros
-        this.carros = CarroService.getCarros(context, tipo)
-        //Atualiza a lista
-        recyclerView.adapter = CarroAdapter(carros) {onClickCarro(it)}
+   /* override fun onResume() {
+        super.onResume()
+    }*/
+
+    private fun taskCarros() {
+        //Liga a animação do ProgressBar
+        progress.visibility = View.VISIBLE
+        doAsync {
+            //Busca carros
+            carros = CarroService.getCarros(tipo)
+            uiThread {
+                //Atualiza a lista
+                recyclerView.adapter = CarroAdapter(carros) { onClickCarro(it) }
+                //Esconde o ProgressBar
+                progress.visibility = View.INVISIBLE
+            }
+        }
     }
 
     //Trata o evento de clique no carro
