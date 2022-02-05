@@ -77,6 +77,8 @@ Versao %s<br><br>
     <string name="menu_luxo">Luxo</string>
     <string name="menu_site">Site do livro</string>
     <string name="menu_config">Configurações</string>
+    <string name="classico">Clássico</string>
+    <string name="esportivo">Esportivo</string>
 
 
 </resources>

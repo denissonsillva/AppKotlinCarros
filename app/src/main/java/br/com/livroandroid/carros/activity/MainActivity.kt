@@ -12,7 +12,6 @@ import br.com.livroandroid.carros.adapter.TabsAdapter
 import br.com.livroandroid.carros.domain.TipoCarro
 import br.com.livroandroid.carros.extensions.setupToolbar
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -29,9 +28,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setupViewPagerTabs()
 
         // FAB (variável fab gerada automaticamente pelo Kotlin Extensions)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Clicou no botão FAB!", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        fab.setOnClickListener (){
+            //Abre a tela de cadastro
+            startActivity<CarroFormActivity>()
         }
     }
 

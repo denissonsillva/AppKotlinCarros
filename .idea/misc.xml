@@ -10,6 +10,8 @@
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2890625" />
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/drawable/side_nav_bar.xml" value="0.2890625" />
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/layout/activity_carro.xml" value="0.1" />
+        <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/layout/activity_carro_form.xml" value="0.203125" />
+        <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/layout/activity_carro_form_contents.xml" value="0.203125" />
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/layout/activity_carros.xml" value="0.22" />
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/layout/activity_site_livro.xml" value="0.22083333333333333" />
@@ -32,6 +34,8 @@
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/layout/toolbar.xml" value="0.22083333333333333" />
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/menu/activity_main_drawer.xml" value="0.33" />
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/menu/main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/menu/menu_carro.xml" value="0.1537037037037037" />
+        <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/menu/menu_form_carro.xml" value="0.1537037037037037" />
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/menu/menu_main.xml" value="0.203125" />
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/menu/nav_drawer_menu.xml" value="0.203125" />
         <entry key="..\:/Android-Kotlin/Estudo/Aplicativos/Carros/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2890625" />

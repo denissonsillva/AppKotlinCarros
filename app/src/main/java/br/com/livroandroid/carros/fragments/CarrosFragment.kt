@@ -1,9 +1,11 @@
 package br.com.livroandroid.carros.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.livroandroid.carros.R
@@ -12,6 +14,7 @@ import br.com.livroandroid.carros.adapter.CarroAdapter
 import br.com.livroandroid.carros.domain.Carro
 import br.com.livroandroid.carros.domain.CarroService
 import br.com.livroandroid.carros.domain.TipoCarro
+import br.com.livroandroid.carros.utils.AndroidUtils
 import kotlinx.android.synthetic.main.fragment_carros.*
 import kotlinx.android.synthetic.main.include_progress.*
 import org.jetbrains.anko.doAsync
@@ -33,6 +36,7 @@ open class CarrosFragment : BaseFragment() {
     }
 
     //Inicializa as Views (Kotlin Extensions funciona aqui)
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Views
@@ -46,17 +50,22 @@ open class CarrosFragment : BaseFragment() {
         super.onResume()
     }*/
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun taskCarros() {
         //Liga a animação do ProgressBar
         progress.visibility = View.VISIBLE
-        doAsync {
-            //Busca carros
-            carros = CarroService.getCarros(tipo)
-            uiThread {
-                //Atualiza a lista
-                recyclerView.adapter = CarroAdapter(carros) { onClickCarro(it) }
-                //Esconde o ProgressBar
-                progress.visibility = View.INVISIBLE
+        //Verifica a disponibilidade de internet
+        val internetOk = AndroidUtils.isNetworkAvailable(context)
+        if(internetOk) { //Em caso de bug, remover esse IF
+            doAsync {
+                //Busca carros
+                carros = CarroService.getCarros(tipo)
+                uiThread {
+                    //Atualiza a lista
+                    recyclerView.adapter = CarroAdapter(carros) { onClickCarro(it) }
+                    //Esconde o ProgressBar
+                    progress.visibility = View.INVISIBLE
+                }
             }
         }
     }
