@@ -14,9 +14,13 @@ import br.com.livroandroid.carros.adapter.CarroAdapter
 import br.com.livroandroid.carros.domain.Carro
 import br.com.livroandroid.carros.domain.CarroService
 import br.com.livroandroid.carros.domain.TipoCarro
+import br.com.livroandroid.carros.domain.event.RefreshListEvent
 import br.com.livroandroid.carros.utils.AndroidUtils
 import kotlinx.android.synthetic.main.fragment_carros.*
 import kotlinx.android.synthetic.main.include_progress.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
@@ -25,6 +29,26 @@ import org.jetbrains.anko.uiThread
 open class CarrosFragment : BaseFragment() {
     private var tipo: TipoCarro = TipoCarro.Classicos
     private var carros = listOf<Carro>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //Registra no Bus de Eventos
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //Cancela o registro no Bus de Eventos
+        EventBus.getDefault().unregister(this)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: RefreshListEvent) {
+        //Recebeu o envento
+        taskCarros()
+    }
+
 
     //Cria a View do Fragment
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
