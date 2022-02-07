@@ -1,40 +1,37 @@
 package br.com.livroandroid.carros.domain
 
-import br.com.livroandroid.carros.domain.retrofit.CarrosAPI
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import br.com.livroandroid.carros.extensions.fromJson
+import br.com.livroandroid.carros.extensions.toJson
+import br.com.livroandroid.carros.utils.HttpHelper
 
+/**
+ * Implementação com OkHttp
+ */
 object CarroService {
-    private const val BASE_URL = "http://livrowebservices.com.br/rest/carros"
-    private var service: CarrosAPI
+    private val BASE_URL = "http://livrowebservices.com.br/rest/carros"
 
-    init {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        service = retrofit.create(CarrosAPI::class.java)
-    }
-
-    //Busca os carros por tipo
+    // Busca os carros por tipo (clássicos, esportivos ou luxo)
     fun getCarros(tipo: TipoCarro): List<Carro> {
-        val call = service.getCarros(tipo.name)
-        val carros = call.execute().body()
-        return carros?: listOf()
+        val url = "$BASE_URL/tipo/${tipo.name}"
+        val json = HttpHelper.get(url)
+        val carros = fromJson<List<Carro>>(json)
+        return carros
     }
 
     // Salva um carro
     fun save(carro: Carro): Response {
-        val call = service.save(carro)
-        val response = call.execute().body()
-        return response?: Response.error()
+        // Faz POST do JSON carro
+        val json = HttpHelper.post(BASE_URL, carro.toJson())
+        val response = fromJson<Response>(json)
+        return response
     }
 
-    //Deletar um carro
-    fun delete(carro: Carro): Response {
-        val call = service.delete(carro.id)
-        val response = call.execute().body()
-        return response?: Response.error()
+    // Deleta um carro
+    fun delete(carro: Carro?): Response {
+        val url = "$BASE_URL/${carro?.id}"
+        val json = HttpHelper.delete(url)
+        val response = fromJson<Response>(json)
+        return response
     }
 }
 
