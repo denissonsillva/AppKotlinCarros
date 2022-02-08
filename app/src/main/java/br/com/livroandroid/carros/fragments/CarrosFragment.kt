@@ -28,10 +28,13 @@ import org.jetbrains.anko.uiThread
 @Suppress("DEPRECATION")
 open class CarrosFragment : BaseFragment() {
     private var tipo: TipoCarro = TipoCarro.Classicos
-    private var carros = listOf<Carro>()
+    protected var carros = listOf<Carro>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreate(icicle: Bundle?) {
+        super.onCreate(icicle)
+        if (arguments != null) {
+            tipo = arguments?.getSerializable("tipo") as TipoCarro
+        }
         //Registra no Bus de Eventos
         EventBus.getDefault().register(this)
     }
@@ -75,7 +78,7 @@ open class CarrosFragment : BaseFragment() {
     }*/
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun taskCarros() {
+    open fun taskCarros() {
         //Liga a animação do ProgressBar
         progress.visibility = View.VISIBLE
         //Verifica a disponibilidade de internet
@@ -95,7 +98,7 @@ open class CarrosFragment : BaseFragment() {
     }
 
     //Trata o evento de clique no carro
-    private fun onClickCarro(carro: Carro) {
+    open fun onClickCarro(carro: Carro) {
         activity?.startActivity<CarroActivity>("carro" to carro)
     }
 }
