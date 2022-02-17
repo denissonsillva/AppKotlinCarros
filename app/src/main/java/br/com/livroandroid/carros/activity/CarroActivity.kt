@@ -1,6 +1,8 @@
 package br.com.livroandroid.carros.activity
 
+import android.content.Intent
 import android.content.res.ColorStateList
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -31,6 +33,16 @@ class CarroActivity : BaseActivity() {
 
         // Variável gerada automaticamente pelo Kotlin Extensions
         fab.setOnClickListener { onClickFavoritar(carro) }
+
+        // Foto do Carro
+        img.loadUrl(carro?.urlFoto)
+        // Toca o Vídeo
+        imgPlayVideo.setOnClickListener {
+            val url = carro?.urlVideo
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.setDataAndType(Uri.parse(url), "video/*")
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
