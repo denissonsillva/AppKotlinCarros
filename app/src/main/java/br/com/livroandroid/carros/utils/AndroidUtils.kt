@@ -13,6 +13,6 @@ object AndroidUtils {
         val networks = connectivity.allNetworks
         return networks
             .map { connectivity.getNetworkInfo(it) }
-            .any { it?.state == NetworkInfo.State.CONNECTED }
+            .any { it?.state == NetworkInfo.State.CONNECTED };
     }
 }

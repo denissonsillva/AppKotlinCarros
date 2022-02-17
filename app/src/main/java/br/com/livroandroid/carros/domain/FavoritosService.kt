@@ -12,7 +12,7 @@ object FavoritosService {
     // Verifica se um carro está favoritado
     fun isFavorito(carro: Carro?) : Boolean {
         val dao = DatabaseManager.getCarroDAO()
-        val exists = dao.getById(carro.id) != null
+        val exists = carro?.let { dao.getById(it.id) } != null
         return exists
     }
 
@@ -28,5 +28,5 @@ object FavoritosService {
         // Adiciona nos favoritos
         dao.insert(carro)
         return true
-    }
+    } 
 }

@@ -1,5 +1,6 @@
 package br.com.livroandroid.carros.fragments
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,6 +31,7 @@ open class CarrosFragment : BaseFragment() {
     private var tipo: TipoCarro = TipoCarro.Classicos
     protected var carros = listOf<Carro>()
 
+    @SuppressLint("UseRequireInsteadOfGet")
     override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         if (arguments != null) {
@@ -56,10 +58,8 @@ open class CarrosFragment : BaseFragment() {
     //Cria a View do Fragment
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_carros, container, false)
-        //Lê o tipo dos argumentos
-        this.tipo = arguments?.getSerializable("tipo") as TipoCarro
-        return view
+        // Retorna a view /res/layout/fragment_carros.xml
+        return inflater.inflate(R.layout.fragment_carros, container, false)
     }
 
     //Inicializa as Views (Kotlin Extensions funciona aqui)

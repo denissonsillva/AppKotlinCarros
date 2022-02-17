@@ -17,7 +17,7 @@ class TabsAdapter(private val context: Context, fm: FragmentManager) : FragmentP
     fun getTipoCarro(position: Int) = when (position) {
         0 -> TipoCarro.Classicos
         1 -> TipoCarro.Esportivos
-        2 -> TipoCarro.Esportivos
+        2 -> TipoCarro.Luxo
         else -> TipoCarro.Favoritos
     }
 
@@ -33,6 +33,7 @@ class TabsAdapter(private val context: Context, fm: FragmentManager) : FragmentP
             // Favoritos
             return FavoritosFragment()
         }
+        // Clássicos, Esportivos e Luxo
         val tipo = getTipoCarro(position)
         val f: Fragment = CarrosFragment()
         val arguments = Bundle()

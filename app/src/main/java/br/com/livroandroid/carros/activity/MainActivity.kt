@@ -11,8 +11,8 @@ import androidx.viewpager.widget.ViewPager
 import br.com.livroandroid.carros.R
 import br.com.livroandroid.carros.adapter.TabsAdapter
 import br.com.livroandroid.carros.domain.TipoCarro
-import br.com.livroandroid.carros.extensions.setupToolbar
 import br.com.livroandroid.carros.utils.Prefs
+import br.com.livroandroid.carros.extensions.setupToolbar
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
@@ -63,17 +63,17 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         viewPager.offscreenPageLimit = 3
         viewPager.adapter = TabsAdapter(context, supportFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
-
         // Cor branca no texto (o fundo azul é definido no layout)
         val cor = ContextCompat.getColor(context, R.color.white)
         tabLayout.setTabTextColors(cor, cor)
 
         // Salva e Recupera a última Tab acessada.
         val tabIdx = Prefs.tabIdx
+
         viewPager.currentItem = tabIdx
-        viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) { }
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) { }
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(p0: Int) {}
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
             override fun onPageSelected(page: Int) {
                 // Salva o índice da página/tab selecionada
                 Prefs.tabIdx = page

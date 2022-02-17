@@ -15,7 +15,7 @@ interface CarroDAO {
     fun findAll(): List<Carro>
 
     @Insert
-    fun insert(carro: Carro)
+    fun insert(carro: Carro?)
 
     @Delete
     fun delete(carro: Carro?)
